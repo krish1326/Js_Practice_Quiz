@@ -1,5 +1,10 @@
 var question = document.getElementById('question')
 const choices = Array.from(document.getElementsByClassName('choice-text'));
+let questionCount=document.getElementById('questionCounter');
+let scoreCount = document.getElementById('score');
+scoreCount.innerText=0;
+let progressBarFull= document.getElementById('progressBarFull');
+
 console.log(choices)
 
 let currentQuestion={};
@@ -44,8 +49,13 @@ choices.forEach(choice=>{
         const selectedAnswer = eve.target.dataset['number'];
         const classToApply = (selectedAnswer==currentQuestion.answer)?'correct':'incorrect';
         eve.target.parentElement.classList.add(classToApply);
+        
+        if(classToApply=='correct'){
+            scoreCount.innerText=++score;
+        }
         setTimeout(()=>{
             eve.target.parentElement.classList.remove(classToApply);
+            
             getNewQuestion();
         },1000)
         
@@ -59,13 +69,15 @@ startgame = ()=>{
 }
 function getNewQuestion(){
     if(availableQuestions===0 ||questionCounter >= MAX_QUESTIONS){
+        localStorage.setItem('mostRecentScore',score)
         return window.location.assign('./end.html')
     }
     questionCounter++;
+    questionCount.innerText= "Question:" + `${questionCounter}/${MAX_QUESTIONS}`
     const questionIndex = Math.floor(Math.random()*availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
     question.innerText = currentQuestion.question;
-
+    progressBarFull.style.width = `${questionCounter/MAX_QUESTIONS*100}%` ;
     choices.forEach(choice=>{
         
         choice.innerText = currentQuestion['choice' + choice.dataset['number']]

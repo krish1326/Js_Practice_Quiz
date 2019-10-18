@@ -1,3 +1,4 @@
+
 .choice-container{
     display:flex;
     margin-bottom:0.5rem;
@@ -27,4 +28,26 @@
 }
 .incorrect{
     background-color: #d9534f ;
+}
+#hud{
+display: flex;
+justify-content:space-between;
+}
+.hud-prefix{
+    text-align: center;
+    font-size: 2rem;
+}
+.hud-main-text{
+    text-align: center;
+}
+.progressBar{
+    margin-top:2rem;
+    width:20rem;
+    height:5rem;
+    border:0.5rem solid yellowgreen;
+}
+#progressBarFull{
+    height: 4rem;
+    width:0rem;
+    background-color: tomato;
 }
